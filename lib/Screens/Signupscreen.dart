@@ -1,5 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:instagram/Utilites/Textfield.dart';
+import 'package:instagram/connection/Authentication.dart';
+import 'package:instagram/user/user.dart';
+import 'package:local_image_provider/local_image_provider_web.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -13,6 +19,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController biocontroller = TextEditingController();
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
+  Uint8List? image;
+  bool _isloading = false;
   @override
   void dispose() {
     super.dispose();
@@ -20,6 +28,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
     biocontroller.dispose();
     emailcontroller.dispose();
     passwordcontroller.dispose();
+  }
+
+  SelectedImage() async {
+    Uint8List? file = await PickImage(ImageSource.gallery);
+    setState(() {
+      image = file;
+    });
+  }
+
+  signUp() async {
+    String email = emailcontroller.text;
+    String password = passwordcontroller.text;
+    String name = usercontroller.text;
+    String bio = biocontroller.text;
+    Uint8List? file;
+
+    String res = await AuthMethod().SignUp(
+        email: email, name: name, password: password, bio: bio, file: file!);
+    if (res == "Success") {
+    } else {}
   }
 
   @override
@@ -32,16 +60,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Flexible(flex: 2, child: Container()),
         Stack(children: [
-          const CircleAvatar(
-            radius: 64,
-            backgroundImage: NetworkImage(
-              "https://media.istockphoto.com/id/1335234186/photo/social-media-profile-page-in-smartphone-screen-at-work-woman-looking-at-feed-status-update-or.jpg?b=1&s=170667a&w=0&k=20&c=lyb5R1OJ53p22m-by_ECCKJOoB_akfdk64nu8A1kdPw=",
-            ),
-          ),
+          image != null
+              ? CircleAvatar(
+                  radius: 64,
+                  backgroundImage: MemoryImage(image!),
+                )
+              : const CircleAvatar(
+                  radius: 64,
+                  backgroundImage: NetworkImage(
+                    "https://media.istockphoto.com/id/1335234186/photo/social-media-profile-page-in-smartphone-screen-at-work-woman-looking-at-feed-status-update-or.jpg?b=1&s=170667a&w=0&k=20&c=lyb5R1OJ53p22m-by_ECCKJOoB_akfdk64nu8A1kdPw=",
+                  ),
+                ),
           Positioned(
               bottom: -10,
-              child:
-                  IconButton(onPressed: () {}, icon: Icon(Icons.add_a_photo))),
+              child: IconButton(
+                  onPressed: () async {
+                    SelectedImage();
+                  },
+                  icon: Icon(Icons.add_a_photo))),
         ]),
         const SizedBox(height: 24),
         TextField1(
