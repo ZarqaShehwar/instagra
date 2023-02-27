@@ -9,12 +9,12 @@ import 'package:instagram/Screens/loginscreen.dart';
 import 'package:instagram/Utilites/colors.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-        //options: FirebaseOptions(apiKey: apiKey, appId: appId, messagingSenderId: messagingSenderId, projectId: projectId)
-        );
-  }
+  //WidgetsFlutterBinding.ensureInitialized();
+  // if (kIsWeb) {
+  //await Firebase.initializeApp(
+  //options: FirebaseOptions(apiKey: apiKey, appId: appId, messagingSenderId: messagingSenderId, projectId: projectId)
+  //  );
+  // }
 
   runApp(const MyHomePage());
 }
@@ -31,7 +31,7 @@ class MyHomePage extends StatelessWidget {
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
 
-      home: const LoginScreen(),
+      home: const WebScreen(),
 
       //Responsive(web: WebScreen(), mobile: MobileScreen()),
     );
