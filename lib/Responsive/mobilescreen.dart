@@ -11,7 +11,8 @@ class _MobileScreen extends State<MobileScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: const Text("MOBILE"),
+      decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage("images/insta.png"))),
     );
   }
 }

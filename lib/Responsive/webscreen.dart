@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/Utilites/colors.dart';
+import 'package:instagram/Utilites/globalvariable.dart';
 
 class WebScreen extends StatefulWidget {
   const WebScreen({super.key});
@@ -38,13 +39,7 @@ class Screen extends State<WebScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: PageView(
-          children: [
-            Text("home"),
-            Text("home"),
-            Text("home"),
-            Text("home"),
-            Text("home"),
-          ],
+          children: homeScreen,
           controller: pageController,
           onPageChanged: OnPageChanged,
         ),
