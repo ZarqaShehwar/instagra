@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/Utilites/Textfield.dart';
+import 'package:instagram/Utilites/globalvariable.dart';
 import 'package:instagram/connection/Authentication.dart';
 import 'package:instagram/user/user.dart';
 import 'package:local_image_provider/local_image_provider_web.dart';
@@ -47,7 +48,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     String res = await AuthMethod().SignUp(
         email: email, name: name, password: password, bio: bio, file: file!);
     if (res == "Success") {
-    } else {}
+    } else {
+      ShowSnackBar(res, context);
+    }
   }
 
   @override
@@ -114,7 +117,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
           height: 24,
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            signUp();
+          },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 12),
             width: double.infinity,

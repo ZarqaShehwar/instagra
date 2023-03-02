@@ -9,3 +9,9 @@ const homeScreen = [
   Text("like"),
   Text("account"),
 ];
+
+ShowSnackBar(String content, BuildContext context) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(content)),
+  );
+}
