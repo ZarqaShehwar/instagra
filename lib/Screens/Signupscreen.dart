@@ -3,10 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/Utilites/Textfield.dart';
+import 'package:instagram/Utilites/colors.dart';
 import 'package:instagram/Utilites/globalvariable.dart';
 import 'package:instagram/connection/Authentication.dart';
 import 'package:instagram/user/user.dart';
-import 'package:local_image_provider/local_image_provider_web.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -21,7 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
   Uint8List? image;
-  bool _isloading = false;
+  bool _isloading1 = false;
   @override
   void dispose() {
     super.dispose();
@@ -38,17 +38,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
   }
 
-  signUp() async {
+  signUp1() async {
     String email = emailcontroller.text;
     String password = passwordcontroller.text;
     String name = usercontroller.text;
     String bio = biocontroller.text;
-    Uint8List? file;
+    Uint8List? file = image!;
+    setState(() {
+      _isloading1 = true;
+    });
 
     String res = await AuthMethod().SignUp(
-        email: email, name: name, password: password, bio: bio, file: file!);
-    if (res == "Success") {
-    } else {
+        email: email, name: name, password: password, bio: bio, file: file);
+    setState(() {
+      _isloading1 = false;
+    });
+
+    if (res == "Success") {}
+    {
       ShowSnackBar(res, context);
     }
   }
@@ -118,7 +125,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         InkWell(
           onTap: () {
-            signUp();
+            signUp1();
           },
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -130,7 +137,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               color: Colors.blue,
             ),
-            child: const Text("Sign in "),
+            child: _isloading1 != false
+                ? const Center(
+                    child: CircularProgressIndicator(color: primaryColor))
+                : const Text("Sign in "),
           ),
         ),
         const SizedBox(

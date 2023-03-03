@@ -38,7 +38,7 @@ class MyHomePage extends StatelessWidget {
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
 
-      home: const WebScreen(),
+      home: const SignUpScreen(),
 
       //Responsive(web: WebScreen(), mobile: MobileScreen()),
     );
