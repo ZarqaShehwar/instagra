@@ -4,7 +4,7 @@ import 'package:instagram/Screens/homescreen.dart';
 
 const homeScreen = [
   HomeScreen(),
-  Text("search"),
+  Text("Search"),
   AddPostScreen(),
   Text("like"),
   Text("account"),
