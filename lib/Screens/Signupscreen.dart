@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram/Screens/homescreen.dart';
 import 'package:instagram/Utilites/Textfield.dart';
 import 'package:instagram/Utilites/colors.dart';
 import 'package:instagram/Utilites/globalvariable.dart';
@@ -54,9 +55,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isloading1 = false;
     });
 
-    if (res == "Success") {}
-    {
+    if (res == "Success") {
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));
+    }
+    else {
       ShowSnackBar(res, context);
+     
     }
   }
 

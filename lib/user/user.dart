@@ -13,23 +13,4 @@ PickImage(ImageSource source) async {
   }
 }
 
-class UserDetail {
-  final String name;
-  final String bio;
-  final String password;
-  final String email;
-  final Uint8List? file;
-  UserDetail(
-      {required this.name,
-      required this.bio,
-      required this.email,
-      required this.password,
-      required this.file});
-  Map<String, dynamic> ToJSON() => {
-        "Username": name,
-        "Email": email,
-        "Password": password,
-        "Bio": bio,
-        "Photo": file,
-      };
-}
+

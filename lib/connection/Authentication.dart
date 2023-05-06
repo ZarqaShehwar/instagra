@@ -6,13 +6,19 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:instagram/connection/storage.dart';
-import 'package:instagram/user/user.dart';
+import 'package:instagram/user/usermodel.dart'as model;
 
 class AuthMethod {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final StorageMethod _method = StorageMethod();
+  Future<model.UserDetail> getUserDetails() async{
+    User currentUser = _auth.currentUser!;
+    DocumentSnapshot snap = await _firestore.collection('users').doc(currentUser.uid).get();
+    return model.UserDetail.fromSnap(snap);
+
+  }
   Future<String> SignUp({
     required String email,
     required String name,
@@ -27,6 +33,7 @@ class AuthMethod {
             email: email, password: password);
         print(cred.user!.uid);
         String photoUrl = await _method.uploadImage("profile pic", file, false);
+        print(photoUrl);
 
         /* await _firestore.collection("User").doc(cred.user!.uid).set(UserDetail(
                 name: name,
@@ -34,8 +41,14 @@ class AuthMethod {
                 email: email,
                 password: password,
                 file: file)
-            .ToJSON());*/
-        await _firestore.collection('users').doc(cred.user!.uid).set({
+             .ToJSON());*/
+
+            model.UserDetail user  = model.UserDetail(username:name,uid: cred.user!.uid,bio:bio,
+            email: email,password: password,photoUrl:photoUrl,follower: [],following: []   );
+
+        await _firestore.collection('users').doc(cred.user!.uid).set(
+          user.ToJSON(),
+          /*{
           'Username': name,
           'uid': cred.user!.uid,
           'Email': email,
@@ -44,13 +57,13 @@ class AuthMethod {
           'Follower': [],
           'Following': [],
           'Photo': photoUrl,
-        });
+          }*/);
         res = "Success";
       } else {
         res = "Please Enter all fields";
       }
     } catch (err) {
-      res = err.toString();
+       res = err.toString();
     }
     return res;
   }

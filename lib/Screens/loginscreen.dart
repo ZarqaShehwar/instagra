@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:instagram/Screens/Signupscreen.dart';
+import 'package:instagram/Screens/homescreen.dart';
 import 'package:instagram/Utilites/Textfield.dart';
 import 'package:instagram/Utilites/colors.dart';
 import 'package:instagram/connection/Authentication.dart';
@@ -31,10 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     String res =
         await AuthMethod().LoginScreeen(email: email, password: password);
-    if (res == "Success") {}
+    if (res == "Success") {
     setState(() {
       _isloading = false;
     });
+     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>HomeScreen()));
+  }
   }
 
   @override
@@ -104,6 +108,10 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text("Do you have an account?"),
             ),
             GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SignUpScreen())
+                );
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 13),
                 child: const Text(
@@ -118,3 +126,5 @@ class _LoginScreenState extends State<LoginScreen> {
     )));
   }
 }
+
+ 
