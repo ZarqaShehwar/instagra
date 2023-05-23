@@ -53,7 +53,7 @@ class MyHomePage extends StatelessWidget {
 
       home: StreamBuilder(
       stream:  FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot){
+        builder:( (context,snapshot){
           if(snapshot.connectionState==ConnectionState.active){
             if(snapshot.hasData){
               return  const Responsive(web: WebScreen(), mobile: MobileScreen());
@@ -69,7 +69,7 @@ class MyHomePage extends StatelessWidget {
           }
         
          return  const LoginScreen();
-        }),
+        })),
 
       // Responsive(web: WebScreen(), mobile: MobileScreen()),
     ));

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/Utilites/colors.dart';
 import 'package:instagram/Utilites/globalvariable.dart';
+import'package:flutter/src/widgets/scroll_physics.dart';
 
 class MobileScreen extends StatefulWidget {
   const MobileScreen({super.key});
@@ -39,6 +40,7 @@ int _page = 0;
   Widget build(BuildContext context) {
     return Scaffold(
         body: PageView(
+          physics:const NeverScrollableScrollPhysics(),
           children: homeScreen,
           controller: pageController,
           onPageChanged: OnPageChanged,

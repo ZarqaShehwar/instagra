@@ -46,6 +46,7 @@ class Screen extends State<WebScreen> {
       
     
  body: PageView(
+ 
     children: homeScreen,
   controller: pageController,
   onPageChanged: OnPageChanged,

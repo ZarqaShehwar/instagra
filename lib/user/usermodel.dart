@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserDetail {
+class UserDetail  {
   final String username;
   final String uid;
   final String bio;
