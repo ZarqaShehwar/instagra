@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:instagram/provider/userProvider.dart';
+import 'package:provider/provider.dart';
 
 class Responsive extends StatefulWidget {
   final Widget web;
@@ -10,6 +12,18 @@ class Responsive extends StatefulWidget {
 }
 
 class _Responsive extends State<Responsive> {
+
+  @override
+ void initState() {
+    super.initState();
+    addData();
+    
+  }
+  addData() async{
+    Userprovider userProvider = Provider.of(context,listen:false);
+    await userProvider.refreshUser();
+    
+  }
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, Constraints) {

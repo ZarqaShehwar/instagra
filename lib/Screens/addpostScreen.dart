@@ -1,9 +1,16 @@
+
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram/Utilites/colors.dart';
+import 'package:instagram/Utilites/globalvariable.dart';
+import 'package:instagram/connection/firestoremethods.dart';
+import 'package:instagram/provider/userProvider.dart';
 import 'package:instagram/user/user.dart';
+import 'package:instagram/user/usermodel.dart';
+import 'package:provider/provider.dart';
 
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
@@ -14,6 +21,8 @@ class AddPostScreen extends StatefulWidget {
 
 class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _image;
+  bool _isloading = false;
+  final TextEditingController _descriptioncontroller=TextEditingController();
   SelectImage() async {
     return showDialog(
       context: context,
@@ -34,8 +43,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
               },
             ),
             SimpleDialogOption(
-              padding: EdgeInsets.all(20),
-              child: Text("Take a photo"),
+              padding: const EdgeInsets.all(20),
+              child: const Text("Take a photo"),
               onPressed: () async {
                 Navigator.of(context).pop();
 
@@ -45,21 +54,64 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 });
               },
             ),
-            SimpleDialogOption(
-              padding: EdgeInsets.all(20),
-              child: Text("Take a photo"),
-              onPressed: () async {
-                Navigator.of(context).pop();
-              },
-            ),
+         
           ],
         );
       },
     );
   }
+  postImage(
+    String uid,
+    String username,
+    String userprofile,
+    
+  )
+
+  async{
+    setState(() {
+      _isloading=true;
+    });
+    try{
+      Uint8List file = _image!;
+      
+      
+      String res = await FirestoreMethods().uploadImage(_descriptioncontroller.text, uid, file, username, userprofile);
+if(res=="Success"){
+  setState(() {
+    _isloading=false;
+  });
+  clearImage();
+ShowSnackBar('posted', context);
+}
+    }
+    catch(e){
+      ShowSnackBar(e.toString()
+      , context);
+
+    }
+  }
+   @override
+  void initState() {
+    super.initState();
+    _descriptioncontroller;
+    
+  }
+  @override
+  void dispose() {
+    
+    super.dispose();
+    _descriptioncontroller.dispose();
+  }
+  clearImage(){
+    setState(() {
+      _image=null;
+    });
+  }
+ 
 
   @override
   Widget build(BuildContext context) {
+    final UserDetail user = Provider.of<Userprovider>(context).getUser;
     return _image == null
         ? Center(
             child: IconButton(
@@ -69,15 +121,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 icon: const Icon(Icons.upload)),
           )
         : Scaffold(
+          
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
               leading: IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+                  onPressed:()=>clearImage(),
+                   icon: const Icon(Icons.arrow_back)),
               title: const Text("Post to"),
               centerTitle: false,
               actions: [
                 TextButton(
-                    onPressed: () {},
+                    onPressed:()=> postImage(user.uid,user.username,user.photoUrl),
                     child: const Text(
                       "Post",
                       style: TextStyle(
@@ -90,21 +144,31 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 )
               ],
             ),
-            body: Row(
+            body: Column(children:[
+               _isloading?const LinearProgressIndicator():Container(),
+               const Divider(),
+              Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+              
+
                 CircleAvatar(
                   backgroundImage: NetworkImage(
-                      "https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"),
-                ),
+                    user.photoUrl==null?user.photoUrl:"https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"),),//NetworkImage(
+
+                
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.45,
-                  child: const TextField(
+                  child:  TextField(
+                   
                     decoration: InputDecoration(
                       hintText: "Write a caption.....",
                       border: InputBorder.none,
+                      
                     ),
+                     controller: _descriptioncontroller,
+                    
                     maxLines: 8,
                   ),
                 ),
@@ -126,7 +190,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 const Divider(),
               ],
-            ),
+            ),],
+            )
           );
   }
 }

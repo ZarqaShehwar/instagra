@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:instagram/Responsive/webscreen.dart';
+import 'package:instagram/Screens/Signupscreen.dart';
+import 'package:instagram/Screens/homescreen.dart';
 import 'package:instagram/Utilites/Textfield.dart';
 import 'package:instagram/Utilites/colors.dart';
 import 'package:instagram/connection/Authentication.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -31,30 +35,33 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     String res =
         await AuthMethod().LoginScreeen(email: email, password: password);
-    if (res == "Success") {}
+    if (res == "Success") {
     setState(() {
       _isloading = false;
     });
+     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>WebScreen()));
+  }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32),
+            child:Container(
+      padding:MediaQuery.of(context).size.width>600?  EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.width/3):
+      const EdgeInsets.symmetric(horizontal: 32),
       width: double.infinity,
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         Flexible(flex: 2, child: Container()),
-        Container(
-          height: 200,
-          width: 200,
-          child: const Image(
-            image: NetworkImage(
-                "https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"),
-            fit: BoxFit.fill,
-          ),
-        ),
+//         Container(
+//           height: 200,
+//           width: 200,
+//           child: Image(
+//             image: 
+// //"https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+// ), fit: BoxFit.fill,
+//           ),
+        SvgPicture.asset('assets/images/ic_instagram.svg'),
         const SizedBox(height: 24),
         TextField1(
           textedittingcontroller: emailController,
@@ -104,6 +111,10 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text("Do you have an account?"),
             ),
             GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>SignUpScreen())
+                );
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 13),
                 child: const Text(
@@ -118,3 +129,5 @@ class _LoginScreenState extends State<LoginScreen> {
     )));
   }
 }
+
+ 

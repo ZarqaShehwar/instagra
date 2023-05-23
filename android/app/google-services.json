@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "746759675129",
+    "project_id": "insta2023-e6bb8",
+    "storage_bucket": "insta2023-e6bb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746759675129:android:f17d7b5f649fca94179628",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746759675129-1u9pjcaldnm6bigcfce4dq3i8rjpnumo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.application",
+            "certificate_hash": "0b8399120289ada3c8a6bacf833d7af3e90c8ee2"
+          }
+        },
+        {
+          "client_id": "746759675129-tvje32f574j6cdcmujucngb3i75tct1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjCRfpo3YWD_oJtCbCkTEbol3dAJCKKZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746759675129-tvje32f574j6cdcmujucngb3i75tct1r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "746759675129-o8o4ul0bafun47e3igiklmf6no2sti0l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.instagram"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746759675129:android:bde3a8bae359c923179628",
+        "android_client_info": {
+          "package_name": "com.example.instagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746759675129-tvje32f574j6cdcmujucngb3i75tct1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjCRfpo3YWD_oJtCbCkTEbol3dAJCKKZ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746759675129-tvje32f574j6cdcmujucngb3i75tct1r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "746759675129-o8o4ul0bafun47e3igiklmf6no2sti0l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.instagram"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

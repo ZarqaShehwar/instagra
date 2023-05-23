@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagram/Responsive/mobilescreen.dart';
+import 'package:instagram/Screens/homescreen.dart';
 import 'package:instagram/Utilites/Textfield.dart';
 import 'package:instagram/Utilites/colors.dart';
 import 'package:instagram/Utilites/globalvariable.dart';
@@ -54,17 +56,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
       _isloading1 = false;
     });
 
-    if (res == "Success") {}
-    {
+    if (res == "Success") {
+       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>MobileScreen()));
+    }
+    else {
       ShowSnackBar(res, context);
+     
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Container(
+        body: SafeArea(child:
+          Container(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       width: double.infinity,
       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [

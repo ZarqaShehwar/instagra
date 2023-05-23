@@ -1,13 +1,16 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/Screens/addpostScreen.dart';
 import 'package:instagram/Screens/homescreen.dart';
+import 'package:instagram/Screens/searchscreen.dart';
+import 'package:instagram/Screens/profileScreen.dart';
 
-const homeScreen = [
+var  homeScreen = [
   HomeScreen(),
-  Text("Search"),
+  SearchScreen(),
   AddPostScreen(),
   Text("like"),
-  Text("account"),
+  ProfileScreen(uid:FirebaseAuth.instance.currentUser!.uid),
 ];
 
 ShowSnackBar(String content, BuildContext context) {

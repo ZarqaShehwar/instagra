@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/Utilites/colors.dart';
 import 'package:instagram/Utilites/globalvariable.dart';
+import 'package:instagram/provider/userProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:instagram/user/usermodel.dart'as model;
 
 class WebScreen extends StatefulWidget {
   const WebScreen({super.key});
@@ -37,13 +40,18 @@ class Screen extends State<WebScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final model.UserDetail user = Provider.of<Userprovider>(context).getUser;
     return Scaffold(
-        body: PageView(
-          children: homeScreen,
-          controller: pageController,
-          onPageChanged: OnPageChanged,
-        ),
-        bottomNavigationBar: CupertinoTabBar(
+      
+    
+ body: PageView(
+ 
+    children: homeScreen,
+  controller: pageController,
+  onPageChanged: OnPageChanged,
+),
+bottomNavigationBar: CupertinoTabBar(
           backgroundColor: mobileBackgroundColor,
           items: [
             BottomNavigationBarItem(
@@ -74,5 +82,6 @@ class Screen extends State<WebScreen> {
           ],
           onTap: NavigationChange,
         ));
-  }
+  
+ }
 }
